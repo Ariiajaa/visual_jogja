@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard WebGIS Pemilu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="navbar">
+        <div class="logo">Sistem Informasi Pemilu Provinsi Yogyakarta</div>
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        <ul class="menu">
+            <li><a href="https://ariiajaa.github.io/Pemilu_Yogya/">Home</a></li>
+            <li><a href="https://ariiajaa.github.io/Pemilu_Yogya/">Visualisasi</a></li>
+            <li><a href="https://ariiajaa.github.io/petaupdatee/">Map Penuh</a></li>
+            <li><a href="https://instagram.com/aridwp_">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <div class="container mx-auto mt-6 px-4">
+        <div class="bg-white p-4 shadow rounded mb-6">
+            <h2 class="text-lg font-semibold mb-4">Peta Interaktif Provinsi Yogyakarta</h2>
+            <iframe src="https://ariiajaa.github.io/petaupdatee/" class="w-full h-96 border rounded" allowfullscreen></iframe>
+        </div>
+
+
+  <!-- Kontainer Baru untuk Diagram 2024 dan 2019 (akan berdampingan) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Diagram Infografis (Tahun 2024 secara spesifik) -->
+            <div class="bg-white p-4 shadow rounded">
+                <h2 class="text-lg font-semibold mb-4">Suara Partai Kabupaten-Kota 2024</h2>
+                <canvas id="stackedBarChart2024" width="800" height="600"></canvas>
+            </div>
+
+            <!-- Diagram Infografis (Tambahan untuk Tahun 2019) -->
+            <div class="bg-white p-4 shadow rounded">
+                <h2 class="text-lg font-semibold mb-4">Suara Partai Kabupaten-Kota 2019</h2>
+                <canvas id="stackedBarChart2019" width="800" height="600"></canvas>
+            </div>
+        </div>
+        
+
+        <script src="script.js"></script>
+    </div>
+
+    <div class="container mx-auto mt-6 bg-white p-4 shadow rounded">
+        <h2 class="text-lg font-semibold mb-4">Hasil Suara Tahun 2024</h2>
+        <div class="overflow-y-auto h-80 border rounded">
+            <table class="table-auto w-full border">
+                <thead class="bg-white-200">
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Kabupaten/Kota</td>
+                        <td class="px-4 py-2 border border-gray-300">Bantul</td>
+                        <td class="px-4 py-2 border border-gray-300">Gunung Kidul</td>
+                        <td class="px-4 py-2 border border-gray-300">Kota Yogyakarta</td>
+                        <td class="px-4 py-2 border border-gray-300">Kulon Progo</td>
+                        <td class="px-4 py-2 border border-gray-300">Sleman</td>
+                        <td class="px-4 py-2 border border-gray-300">Total Suara</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Kebangkitan Bangsa</td>
+                        <td class="px-4 py-2 border border-gray-300">83.194</td>
+                        <td class="px-4 py-2 border border-gray-300">50.873</td>
+                        <td class="px-4 py-2 border border-gray-300">10.128</td>
+                        <td class="px-4 py-2 border border-gray-300">38.428</td>
+                        <td class="px-4 py-2 border border-gray-300">63.004</td>
+                        <td class="px-4 py-2 border border-gray-300">245.627</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Gerakan Indonesia Raya</td>
+                        <td class="px-4 py-2 border border-gray-300">68.663</td>
+                        <td class="px-4 py-2 border border-gray-300">54.277</td>
+                        <td class="px-4 py-2 border border-gray-300">30.753</td>
+                        <td class="px-4 py-2 border border-gray-300">40.107</td>
+                        <td class="px-4 py-2 border border-gray-300">78.365</td>
+                        <td class="px-4 py-2 border border-gray-300">272.165</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Demokrasi Indonesia Perjuangan</td>
+                        <td class="px-4 py-2 border border-gray-300">147.594</td>
+                        <td class="px-4 py-2 border border-gray-300">93.575</td>
+                        <td class="px-4 py-2 border border-gray-300">78.612</td>
+                        <td class="px-4 py-2 border border-gray-300">75.917</td>
+                        <td class="px-4 py-2 border border-gray-300">198.271</td>
+                        <td class="px-4 py-2 border border-gray-300">593.969</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Golongan Karya</td>
+                        <td class="px-4 py-2 border border-gray-300">87.335</td>
+                        <td class="px-4 py-2 border border-gray-300">100.931</td>
+                        <td class="px-4 py-2 border border-gray-300">18.553</td>
+                        <td class="px-4 py-2 border border-gray-300">34.035</td>
+                        <td class="px-4 py-2 border border-gray-300">61.991</td>
+                        <td class="px-4 py-2 border border-gray-300">302.845</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai NasDem</td>
+                        <td class="px-4 py-2 border border-gray-300">16.264</td>
+                        <td class="px-4 py-2 border border-gray-300">49.887</td>
+                        <td class="px-4 py-2 border border-gray-300">11.611</td>
+                        <td class="px-4 py-2 border border-gray-300">10.336</td>
+                        <td class="px-4 py-2 border border-gray-300">42.732</td>
+                        <td class="px-4 py-2 border border-gray-300">130.830</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Buruh</td>
+                        <td class="px-4 py-2 border border-gray-300">3.820</td>
+                        <td class="px-4 py-2 border border-gray-300">2.320</td>
+                        <td class="px-4 py-2 border border-gray-300">2.635</td>
+                        <td class="px-4 py-2 border border-gray-300">1.272</td>
+                        <td class="px-4 py-2 border border-gray-300">5.296</td>
+                        <td class="px-4 py-2 border border-gray-300">15.343</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Gelombang Rakyat Indonesia</td>
+                        <td class="px-4 py-2 border border-gray-300">3.261</td>
+                        <td class="px-4 py-2 border border-gray-300">3.313</td>
+                        <td class="px-4 py-2 border border-gray-300">1.511</td>
+                        <td class="px-4 py-2 border border-gray-300">1.513</td>
+                        <td class="px-4 py-2 border border-gray-300">3.134</td>
+                        <td class="px-4 py-2 border border-gray-300">12.732</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Keadilan Sejahtera</td>
+                        <td class="px-4 py-2 border border-gray-300">87.998</td>
+                        <td class="px-4 py-2 border border-gray-300">39.229</td>
+                        <td class="px-4 py-2 border border-gray-300">31.094</td>
+                        <td class="px-4 py-2 border border-gray-300">28.663</td>
+                        <td class="px-4 py-2 border border-gray-300">85.077</td>
+                        <td class="px-4 py-2 border border-gray-300">272.061</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Kebangkitan Nusantara</td>
+                        <td class="px-4 py-2 border border-gray-300">1.048</td>
+                        <td class="px-4 py-2 border border-gray-300">891</td>
+                        <td class="px-4 py-2 border border-gray-300">409</td>
+                        <td class="px-4 py-2 border border-gray-300">238</td>
+                        <td class="px-4 py-2 border border-gray-300">1.052</td>
+                        <td class="px-4 py-2 border border-gray-300">3.638</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Hati Nurani Rakyat</td>
+                        <td class="px-4 py-2 border border-gray-300">823</td>
+                        <td class="px-4 py-2 border border-gray-300">1.493</td>
+                        <td class="px-4 py-2 border border-gray-300">453</td>
+                        <td class="px-4 py-2 border border-gray-300">341</td>
+                        <td class="px-4 py-2 border border-gray-300">937</td>
+                        <td class="px-4 py-2 border border-gray-300">4.047</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Garda Republik Indonesia</td>
+                        <td class="px-4 py-2 border border-gray-300">1.318</td>
+                        <td class="px-4 py-2 border border-gray-300">1.138</td>
+                        <td class="px-4 py-2 border border-gray-300">478</td>
+                        <td class="px-4 py-2 border border-gray-300">530</td>
+                        <td class="px-4 py-2 border border-gray-300">1328</td>
+                        <td class="px-4 py-2 border border-gray-300">4.792</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Amanat Nasional</td>
+                        <td class="px-4 py-2 border border-gray-300">39.031</td>
+                        <td class="px-4 py-2 border border-gray-300">41.375</td>
+                        <td class="px-4 py-2 border border-gray-300">18.514</td>
+                        <td class="px-4 py-2 border border-gray-300">21.152</td>
+                        <td class="px-4 py-2 border border-gray-300">78.590</td>
+                        <td class="px-4 py-2 border border-gray-300">198.662</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Bulan Bintang</td>
+                        <td class="px-4 py-2 border border-gray-300">1.437</td>
+                        <td class="px-4 py-2 border border-gray-300">505</td>
+                        <td class="px-4 py-2 border border-gray-300">297</td>
+                        <td class="px-4 py-2 border border-gray-300">270</td>
+                        <td class="px-4 py-2 border border-gray-300">741</td>
+                        <td class="px-4 py-2 border border-gray-300">3.250</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Demokrat</td>
+                        <td class="px-4 py-2 border border-gray-300">13.119</td>
+                        <td class="px-4 py-2 border border-gray-300">16.850</td>
+                        <td class="px-4 py-2 border border-gray-300">5.032</td>
+                        <td class="px-4 py-2 border border-gray-300">3.057</td>
+                        <td class="px-4 py-2 border border-gray-300">11.145</td>
+                        <td class="px-4 py-2 border border-gray-300">49.203</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Solidaritas Indonesia</td>
+                        <td class="px-4 py-2 border border-gray-300">15.191</td>
+                        <td class="px-4 py-2 border border-gray-300">12.313</td>
+                        <td class="px-4 py-2 border border-gray-300">14.475</td>
+                        <td class="px-4 py-2 border border-gray-300">7.627</td>
+                        <td class="px-4 py-2 border border-gray-300">22.392</td>
+                        <td class="px-4 py-2 border border-gray-300">71.998</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Perindo</td>
+                        <td class="px-4 py-2 border border-gray-300">2.180</td>
+                        <td class="px-4 py-2 border border-gray-300">2.120</td>
+                        <td class="px-4 py-2 border border-gray-300">1.957</td>
+                        <td class="px-4 py-2 border border-gray-300">783</td>
+                        <td class="px-4 py-2 border border-gray-300">3.194</td>
+                        <td class="px-4 py-2 border border-gray-300">10.234</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Persatuan Pembangunan</td>
+                        <td class="px-4 py-2 border border-gray-300">14.895</td>
+                        <td class="px-4 py-2 border border-gray-300">3.185</td>
+                        <td class="px-4 py-2 border border-gray-300">8.856</td>
+                        <td class="px-4 py-2 border border-gray-300">4.098</td>
+                        <td class="px-4 py-2 border border-gray-300">16.809</td>
+                        <td class="px-4 py-2 border border-gray-300">47.843</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Ummat</td>
+                        <td class="px-4 py-2 border border-gray-300">18.947</td>
+                        <td class="px-4 py-2 border border-gray-300">4.728</td>
+                        <td class="px-4 py-2 border border-gray-300">10.662</td>
+                        <td class="px-4 py-2 border border-gray-300">5.811</td>
+                        <td class="px-4 py-2 border border-gray-300">15.362</td>
+                        <td class="px-4 py-2 border border-gray-300">55.510</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container mx-auto mt-6 bg-white p-4 shadow rounded">
+        <h2 class="text-lg font-semibold mb-4">Hasil Suara Tahun 2019</h2>
+        <div class="overflow-y-auto h-80 border rounded">
+            <table class="table-auto w-full border">
+                <thead class="bg-white-200">
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Kabupaten/Kota</td>
+                        <td class="px-4 py-2 border border-gray-300">Bantul</td>
+                        <td class="px-4 py-2 border border-gray-300">Gunung Kidul</td>
+                        <td class="px-4 py-2 border border-gray-300">Kota Yogyakarta</td>
+                        <td class="px-4 py-2 border border-gray-300">Kulon Progo</td>
+                        <td class="px-4 py-2 border border-gray-300">Sleman</td>
+                        <td class="px-4 py-2 border border-gray-300">Total Suara</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="px-4 py-2 border border-gray-300">Partai Kebangkitan Bangsa</td>
+                    <td class="px-4 py-2 border border-gray-300">76.373</td>
+                    <td class="px-4 py-2 border border-gray-300">47.376</td>
+                    <td class="px-4 py-2 border border-gray-300">8.653</td>
+                    <td class="px-4 py-2 border border-gray-300">38.228</td>
+                    <td class="px-4 py-2 border border-gray-300">94.008</td>
+                    <td class="px-4 py-2 border border-gray-300">264.638</td>
+                </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Gerakan Indonesia Raya</td>
+                        <td class="px-4 py-2 border border-gray-300">57.715</td>
+                        <td class="px-4 py-2 border border-gray-300">37.887</td>
+                        <td class="px-4 py-2 border border-gray-300">18.125</td>
+                        <td class="px-4 py-2 border border-gray-300">24.736</td>
+                        <td class="px-4 py-2 border border-gray-300">52.883</td>
+                        <td class="px-4 py-2 border border-gray-300">191.346</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Demokrasi Indonesia Perjuangan</td>
+                        <td class="px-4 py-2 border border-gray-300">177.227</td>
+                        <td class="px-4 py-2 border border-gray-300">102.392</td>
+                        <td class="px-4 py-2 border border-gray-300">101.139</td>
+                        <td class="px-4 py-2 border border-gray-300">72.190</td>
+                        <td class="px-4 py-2 border border-gray-300">201.140</td>
+                        <td class="px-4 py-2 border border-gray-300">654.088</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Golongan Karya</td>
+                        <td class="px-4 py-2 border border-gray-300">35.869</td>
+                        <td class="px-4 py-2 border border-gray-300">54.388</td>
+                        <td class="px-4 py-2 border border-gray-300">11.497</td>
+                        <td class="px-4 py-2 border border-gray-300">17.930</td>
+                        <td class="px-4 py-2 border border-gray-300">33.219</td>
+                        <td class="px-4 py-2 border border-gray-300">152.903</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai NasDem</td>
+                        <td class="px-4 py-2 border border-gray-300">30.331</td>
+                        <td class="px-4 py-2 border border-gray-300">74.588</td>
+                        <td class="px-4 py-2 border border-gray-300">10.159</td>
+                        <td class="px-4 py-2 border border-gray-300">9.505</td>
+                        <td class="px-4 py-2 border border-gray-300">42.097</td>
+                        <td class="px-4 py-2 border border-gray-300">166.680</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Keadilan Sejahtera</td>
+                        <td class="px-4 py-2 border border-gray-300">61.857</td>
+                        <td class="px-4 py-2 border border-gray-300">37.770</td>
+                        <td class="px-4 py-2 border border-gray-300">22.166</td>
+                        <td class="px-4 py-2 border border-gray-300">33.834</td>
+                        <td class="px-4 py-2 border border-gray-300">74.188</td>
+                        <td class="px-4 py-2 border border-gray-300">229.815</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Hati Nurani Rakyat</td>
+                        <td class="px-4 py-2 border border-gray-300">852</td>
+                        <td class="px-4 py-2 border border-gray-300">3.177</td>
+                        <td class="px-4 py-2 border border-gray-300">477</td>
+                        <td class="px-4 py-2 border border-gray-300">839</td>
+                        <td class="px-4 py-2 border border-gray-300">1.642</td>
+                        <td class="px-4 py-2 border border-gray-300">6.987</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Garda Republik Indonesia</td>
+                        <td class="px-4 py-2 border border-gray-300">2.207</td>
+                        <td class="px-4 py-2 border border-gray-300">1.832</td>
+                        <td class="px-4 py-2 border border-gray-300">504</td>
+                        <td class="px-4 py-2 border border-gray-300">1.387</td>
+                        <td class="px-4 py-2 border border-gray-300">2.709</td>
+                        <td class="px-4 py-2 border border-gray-300">8.639</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Amanat Nasional</td>
+                        <td class="px-4 py-2 border border-gray-300">57.476</td>
+                        <td class="px-4 py-2 border border-gray-300">43.481</td>
+                        <td class="px-4 py-2 border border-gray-300">36.418</td>
+                        <td class="px-4 py-2 border border-gray-300">31.490</td>
+                        <td class="px-4 py-2 border border-gray-300">68.866</td>
+                        <td class="px-4 py-2 border border-gray-300">237.731</td>
+                    </tr>
+                    <tr><td class="px-4 py-2 border border-gray-300">Partai Bulan Bintang</td>
+                        <td class="px-4 py-2 border border-gray-300">3.377</td>
+                        <td class="px-4 py-2 border border-gray-300">1.618</td>
+                        <td class="px-4 py-2 border border-gray-300">864</td>
+                        <td class="px-4 py-2 border border-gray-300">823</td>
+                        <td class="px-4 py-2 border border-gray-300">2.696</td>
+                        <td class="px-4 py-2 border border-gray-300">9.378</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Demokrat</td>
+                        <td class="px-4 py-2 border border-gray-300">19.110</td>
+                        <td class="px-4 py-2 border border-gray-300">15.734</td>
+                        <td class="px-4 py-2 border border-gray-300">6.777</td>
+                        <td class="px-4 py-2 border border-gray-300">7.234</td>
+                        <td class="px-4 py-2 border border-gray-300">13.853</td>
+                        <td class="px-4 py-2 border border-gray-300">62.708</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Solidaritas Indonesia</td>
+                        <td class="px-4 py-2 border border-gray-300">8.944</td>
+                        <td class="px-4 py-2 border border-gray-300">4.344</td>
+                        <td class="px-4 py-2 border border-gray-300">12.323</td>
+                        <td class="px-4 py-2 border border-gray-300">2.571</td>
+                        <td class="px-4 py-2 border border-gray-300">17.165</td>
+                        <td class="px-4 py-2 border border-gray-300">45.347</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Perindo</td>
+                        <td class="px-4 py-2 border border-gray-300">6.435</td>
+                        <td class="px-4 py-2 border border-gray-300">6.705</td>
+                        <td class="px-4 py-2 border border-gray-300">3.610</td>
+                        <td class="px-4 py-2 border border-gray-300">3.339</td>
+                        <td class="px-4 py-2 border border-gray-300">7.275</td>
+                        <td class="px-4 py-2 border border-gray-300">27.364</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Persatuan Pembangunan</td>
+                        <td class="px-4 py-2 border border-gray-300">22.406</td>
+                        <td class="px-4 py-2 border border-gray-300">6.622</td>
+                        <td class="px-4 py-2 border border-gray-300">8.034</td>
+                        <td class="px-4 py-2 border border-gray-300">4.894</td>
+                        <td class="px-4 py-2 border border-gray-300">20.401</td>
+                        <td class="px-4 py-2 border border-gray-300">62.357</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Keadilan dan Persatuan</td>
+                        <td class="px-4 py-2 border border-gray-300">1.097</td>
+                        <td class="px-4 py-2 border border-gray-300">403</td>
+                        <td class="px-4 py-2 border border-gray-300">651</td>
+                        <td class="px-4 py-2 border border-gray-300">355</td>
+                        <td class="px-4 py-2 border border-gray-300">1.161</td>
+                        <td class="px-4 py-2 border border-gray-300">3.667</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">Partai Berkarya</td>
+                        <td class="px-4 py-2 border border-gray-300">16.221</td>
+                        <td class="px-4 py-2 border border-gray-300">16.155</td>
+                        <td class="px-4 py-2 border border-gray-300">5.063</td>
+                        <td class="px-4 py-2 border border-gray-300">8.362</td>
+                        <td class="px-4 py-2 border border-gray-300">14.810</td>
+                        <td class="px-4 py-2 border border-gray-300">60.611</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

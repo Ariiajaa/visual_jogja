@@ -1,0 +1,122 @@
+/* Custom CSS for Navbar */
+
+/* 1. Gunakan Variabel CSS untuk Keterbacaan & Pemeliharaan */
+:root {
+    --navbar-bg: #7c0000;
+    --navbar-text-color: white;
+    --navbar-padding: 1rem;
+    --logo-font-size: 1.5rem;
+    --menu-item-padding: 0.5rem 1rem;
+    --toggle-font-size: 2rem;
+    --breakpoint-mobile: 768px;
+}
+
+.navbar {
+    background-color: var(--navbar-bg);
+    color: var(--navbar-text-color);
+    padding: var(--navbar-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Opsional: Membuat navbar sticky di bagian atas */
+    /* position: sticky;
+    top: 0;
+    z-index: 1000; */
+}
+
+.navbar .logo {
+    font-size: var(--logo-font-size);
+    font-weight: bold;
+    /* Opsional: Tambahkan margin jika perlu pemisah dari menu toggle */
+    /* margin-right: auto; */
+}
+
+.navbar .menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.navbar .menu li a {
+    color: var(--navbar-text-color);
+    text-decoration: none;
+    padding: var(--menu-item-padding);
+}
+
+/* Efek hover untuk link menu */
+.navbar .menu li a:hover,
+.navbar .menu li a:focus { /* Tambahkan focus untuk aksesibilitas keyboard */
+    background-color: rgba(255, 255, 255, 0.2); /* Sedikit transparan putih */
+    border-radius: 4px; /* Sudut sedikit membulat */
+}
+
+
+.navbar .menu-toggle {
+    display: none; /* Hidden on larger screens */
+    font-size: var(--toggle-font-size);
+    cursor: pointer;
+    background: none; /* Hilangkan background default button */
+    border: none; /* Hilangkan border default button */
+    color: var(--navbar-text-color); /* Warna icon toggle */
+    padding: 0; /* Hilangkan padding default button */
+    line-height: 1; /* Pastikan tinggi baris sesuai dengan ukuran font */
+}
+
+/* --- Responsive Adjustments for Mobile --- */
+@media (max-width: var(--breakpoint-mobile)) {
+    .navbar {
+        flex-wrap: wrap; /* Allows items to wrap when small */
+        /* Sesuaikan penataan pada mobile jika toggle di sisi kanan */
+        /* justify-content: space-between; */
+    }
+
+    .navbar .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        /* Tambahkan margin-top agar tidak terlalu mepet dengan logo/toggle */
+        margin-top: var(--navbar-padding);
+        /* Posisi absolut untuk overlay penuh jika diinginkan */
+        /* position: absolute;
+        top: calc(var(--navbar-padding) * 2 + var(--logo-font-size)); */ /* Sesuaikan dengan tinggi navbar */
+        /* left: 0;
+        background-color: var(--navbar-bg);
+        z-index: 999; */
+    }
+    
+
+    /* Opsional: Animasi slide-down untuk menu */
+    /* @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    } */
+
+    .navbar .menu li {
+        width: 100%; /* Pastikan setiap item menu mengambil lebar penuh */
+    }
+
+    .navbar .menu li a {
+        display: block; /* Agar link memenuhi seluruh area li */
+        padding: 1rem; /* Padding lebih besar untuk sentuhan mudah */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Garis pemisah antar item */
+    }
+    .navbar .menu li:last-child a {
+        border-bottom: none; /* Hilangkan border pada item terakhir */
+    }
+
+    .navbar .menu-toggle {
+        display: block;
+    }
+    .menu.active {
+        display: flex; /* Untuk menampilkan menu saat kelas 'active' ditambahkan oleh JS */
+    }
+}
